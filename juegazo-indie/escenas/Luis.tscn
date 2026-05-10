@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://bfjpjxl5dnpeb"]
+
+[ext_resource type="Texture2D" uid="uid://cyam51w5sigkj" path="res://sprites/Luis/idleLuis.png" id="1_cvhc1"]
+[ext_resource type="Script" uid="uid://byh6wtcmvig50" path="res://Scripts/luis.gd" id="1_k0pdd"]
+[ext_resource type="Texture2D" uid="uid://dls8pd5av6mly" path="res://sprites/Luis/FrameLuis2.png" id="3_go1v2"]
+[ext_resource type="Texture2D" uid="uid://b0jrv8jucvnys" path="res://sprites/Luis/FrameLuis1.png" id="3_pwki4"]
+[ext_resource type="Script" uid="uid://dw047tn6dfl3s" path="res://Scripts/InputComponent.gd" id="5_peca8"]
+[ext_resource type="Script" uid="uid://d0prqcsbto3fm" path="res://Scripts/Movement_Component.gd" id="6_c4n2w"]
+[ext_resource type="Script" uid="uid://bumwoq2yk5oc5" path="res://Scripts/Health_Component.gd" id="7_vcb54"]
+[ext_resource type="Script" uid="uid://cf2i7cxylu0xi" path="res://Scripts/ProgressBarComponent.gd" id="8_hcyaq"]
+[ext_resource type="PackedScene" uid="uid://k0jjl2q5urji" path="res://escenas/health_bar.tscn" id="9_xarax"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0pdd"]
+radius = 36.0
+height = 212.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pwki4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cvhc1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cvhc1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pwki4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_cvhc1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_go1v2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="Animation" id="Animation_peca8"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c4n2w"]
+_data = {
+&"idle": SubResource("Animation_peca8")
+}
+
+[node name="Luis" type="CharacterBody2D"]
+script = ExtResource("1_k0pdd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -80)
+shape = SubResource("CapsuleShape2D_k0pdd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pwki4")
+animation = &"walk"
+frame_progress = 0.81439626
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_c4n2w")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="InputComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_peca8")
+metadata/_custom_type_script = "uid://dw047tn6dfl3s"
+
+[node name="Movement_Component" type="Node" parent="." node_paths=PackedStringArray("body", "model")]
+unique_name_in_owner = true
+script = ExtResource("6_c4n2w")
+body = NodePath("..")
+model = NodePath("../AnimatedSprite2D")
+metadata/_custom_type_script = "uid://d0prqcsbto3fm"
+
+[node name="Health_Component" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_vcb54")
+metadata/_custom_type_script = "uid://bumwoq2yk5oc5"
+
+[node name="ProgressBarComponent" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_hcyaq")
+metadata/_custom_type_script = "uid://cf2i7cxylu0xi"
+
+[node name="HealthBar" parent="." instance=ExtResource("9_xarax")]
+offset_left = -1.0
+offset_top = -237.0
+offset_right = 249.0
+offset_bottom = -189.0

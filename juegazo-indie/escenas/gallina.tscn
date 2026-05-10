@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://uiaw24mvirvo"]
+
+[ext_resource type="Texture2D" uid="uid://0bj70huad6rl" path="res://sprites/gallina/gallina.png" id="1_44kxi"]
+
+[node name="Node2D" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_44kxi")
