@@ -1,18 +1,22 @@
+# InputComponent.gd
 class_name InputComponent extends Node
+
+signal moved(direction: Vector2)
+signal sprint_changed(is_running: bool)
+signal hurt_pressed
+signal heal_pressed
 
 var is_running := false
 var move_dir: Vector2 = Vector2.ZERO
-var hurt_pressed := false
-var heal_pressed := false
 
 func update() -> void:
 	move_dir = Input.get_vector("move_left","move_rigth","move_up","move_down")
 	is_running = Input.is_action_pressed("select")
-	hurt_pressed = Input.is_action_just_pressed("hurt")
-	heal_pressed = Input.is_action_just_pressed("heal")
 	
+	moved.emit(move_dir)
+	sprint_changed.emit(is_running)
 	
-	
-	
-	
-	
+	if Input.is_action_just_pressed("hurt"):
+		hurt_pressed.emit()
+	if Input.is_action_just_pressed("heal"):
+		heal_pressed.emit()

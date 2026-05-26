@@ -1,14 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfjpjxl5dnpeb"]
+[gd_scene load_steps=13 format=3 uid="uid://bfjpjxl5dnpeb"]
 
 [ext_resource type="Texture2D" uid="uid://cyam51w5sigkj" path="res://sprites/Luis/idleLuis.png" id="1_cvhc1"]
 [ext_resource type="Script" uid="uid://byh6wtcmvig50" path="res://Scripts/luis.gd" id="1_k0pdd"]
 [ext_resource type="Texture2D" uid="uid://dls8pd5av6mly" path="res://sprites/Luis/FrameLuis2.png" id="3_go1v2"]
 [ext_resource type="Texture2D" uid="uid://b0jrv8jucvnys" path="res://sprites/Luis/FrameLuis1.png" id="3_pwki4"]
-[ext_resource type="Script" uid="uid://dw047tn6dfl3s" path="res://Scripts/InputComponent.gd" id="5_peca8"]
 [ext_resource type="Script" uid="uid://d0prqcsbto3fm" path="res://Scripts/Movement_Component.gd" id="6_c4n2w"]
 [ext_resource type="Script" uid="uid://bumwoq2yk5oc5" path="res://Scripts/Health_Component.gd" id="7_vcb54"]
 [ext_resource type="Script" uid="uid://cf2i7cxylu0xi" path="res://Scripts/ProgressBarComponent.gd" id="8_hcyaq"]
-[ext_resource type="PackedScene" uid="uid://k0jjl2q5urji" path="res://escenas/health_bar.tscn" id="9_xarax"]
+[ext_resource type="PackedScene" uid="uid://k0jjl2q5urji" path="res://escenas/Barras/health_bar.tscn" id="9_xarax"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0pdd"]
 radius = 36.0
@@ -68,11 +67,6 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="InputComponent" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("5_peca8")
-metadata/_custom_type_script = "uid://dw047tn6dfl3s"
 
 [node name="Movement_Component" type="Node" parent="." node_paths=PackedStringArray("body", "model")]
 unique_name_in_owner = true

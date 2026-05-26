@@ -21,7 +21,5 @@ func tick(delta:float) -> void:
 		
 		body.velocity.x = direction.x * sprint_speed  
 		body.velocity.y = direction.y * sprint_speed
-		
-	
 	
 	body.move_and_slide()

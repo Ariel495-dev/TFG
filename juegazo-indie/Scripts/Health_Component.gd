@@ -1,11 +1,17 @@
 class_name Health_Component extends Node
 
+
 signal health_changed(current : float , max : float)
 signal died
 
-@export var max_health := 100.0
+var max_health := 100.0
 var current_health := 0.0
 
+func initalize(p_max_health):
+	max_health = p_max_health
+	current_health = max_health
+	_emit()
+	
 func _ready() -> void:
 	current_health = max_health
 	_emit()

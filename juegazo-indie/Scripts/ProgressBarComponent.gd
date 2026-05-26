@@ -10,22 +10,15 @@ var bottom_bar: TextureRect
 		var old_value = current_value
 		var new_value_clamped = clamp(value, 0.0, max_value)
 		current_value = new_value_clamped
-
 		_update_top_bar(current_value)
-
 		if new_value_clamped < old_value:
-			if new_value_clamped == 0.0:
-				_update_bottom_bar(0.0)
-				is_bloodborne_active = false
-			else:
-				_start_bloodborne_effect(new_value_clamped, old_value)
+			_start_bloodborne_effect(new_value_clamped, old_value)
 		elif new_value_clamped > old_value:
 			_update_bottom_bar(current_value)
 			is_bloodborne_active = false
-
 		value_changed.emit(current_value)
 
-@export var bloodborne_speed: float = 75.0
+@export var bloodborne_speed: float = 250
 
 signal value_changed(new_value: float)
 
@@ -37,20 +30,15 @@ func setup_bars(bg: TextureRect, top: TextureRect, bottom: TextureRect) -> void:
 	background_bar = bg
 	top_bar = top
 	bottom_bar = bottom
-
 	if top_bar:
 		top_bar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		top_bar.stretch_mode = TextureRect.STRETCH_SCALE
-
 	if bottom_bar:
 		bottom_bar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		bottom_bar.stretch_mode = TextureRect.STRETCH_SCALE
-
 	await Engine.get_main_loop().process_frame
-
 	if background_bar:
 		bar_full_width = background_bar.size.x
-
 	_setup_bars()
 
 func _setup_bars() -> void:
@@ -79,13 +67,10 @@ func _start_bloodborne_effect(new_value: float, old_value: float) -> void:
 func _process(delta: float) -> void:
 	if not is_bloodborne_active or not bottom_bar or bar_full_width == 0.0:
 		return
-
 	var current_width = bottom_bar.size.x
 	var target_width = (target_bottom_value / max_value) * bar_full_width
-
 	var new_width = move_toward(current_width, target_width, bloodborne_speed * delta)
 	bottom_bar.size.x = new_width
-
 	if abs(new_width - target_width) < 0.5:
 		bottom_bar.size.x = target_width
 		is_bloodborne_active = false
