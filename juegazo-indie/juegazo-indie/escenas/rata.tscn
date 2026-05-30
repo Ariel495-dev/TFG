@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=3 uid="uid://cr7dksrmj1kl6"]
+
+[ext_resource type="Script" uid="uid://canynap30gjcb" path="res://Scripts/Relacionados con la UI de combate/EnemyScene.gd" id="1_rfijm"]
+[ext_resource type="Script" uid="uid://bumwoq2yk5oc5" path="res://Scripts/Health_Component.gd" id="2_cclo6"]
+[ext_resource type="Texture2D" uid="uid://s2x12ase8nqq" path="res://sprites/Rata/rataTFG.png" id="2_kkeca"]
+[ext_resource type="Script" uid="uid://b1gxann1mewtu" path="res://Scripts/Relacionados con la UI de combate/StaminaComponent.gd" id="3_bfbk4"]
+[ext_resource type="Script" uid="uid://botochnjjpw4m" path="res://Scripts/Relacionados con la UI de combate/ActionComponent.gd" id="4_kkeca"]
+[ext_resource type="Script" uid="uid://b0fidng2aogcq" path="res://Scripts/Relacionados con la UI de combate/SoulRewardComponent.gd" id="6_5ipi8"]
+[ext_resource type="Script" uid="uid://bukjmjvy85oi2" path="res://Scripts/Relacionados con la UI de combate/ExperienceComponent.gd" id="7_1tfgv"]
+[ext_resource type="Script" uid="uid://d3unx4c4rnnfx" path="res://Scripts/Relacionados con la UI de combate/CombatTriggerComponent.gd" id="8_5ipi8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j2h8g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kkeca")
+}],
+"loop": true,
+"name": &"idleRata",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_nte26"]
+resource_name = "rata_idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sxh70"]
+_data = {
+&"rata_idle": SubResource("Animation_nte26")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ioxfw"]
+size = Vector2(273, 183)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ipi8"]
+size = Vector2(441, 326)
+
+[node name="Rata" type="CharacterBody2D"]
+script = ExtResource("1_rfijm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(348, 137)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_j2h8g")
+animation = &"idleRata"
+
+[node name="Health_Component" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_cclo6")
+metadata/_custom_type_script = "uid://bumwoq2yk5oc5"
+
+[node name="StaminaComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_bfbk4")
+metadata/_custom_type_script = "uid://b1gxann1mewtu"
+
+[node name="ActionComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_kkeca")
+metadata/_custom_type_script = "uid://botochnjjpw4m"
+
+[node name="SoulRewardComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_5ipi8")
+metadata/_custom_type_script = "uid://b0fidng2aogcq"
+
+[node name="ExperienceComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_1tfgv")
+metadata/_custom_type_script = "uid://bukjmjvy85oi2"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sxh70")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(207, 121)
+shape = SubResource("RectangleShape2D_ioxfw")
+
+[node name="CombatTriggerComponent" type="Node" parent="." node_paths=PackedStringArray("area")]
+unique_name_in_owner = true
+script = ExtResource("8_5ipi8")
+area = NodePath("../Area2D")
+metadata/_custom_type_script = "uid://d3unx4c4rnnfx"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(210.5, 129)
+shape = SubResource("RectangleShape2D_5ipi8")

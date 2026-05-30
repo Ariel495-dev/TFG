@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://hs28l2ylyluo"]
+
+[ext_resource type="Script" uid="uid://y2tmsefmloup" path="res://Scripts/Relacionados con la UI de combate/CombatUI.gd" id="1_n6w7t"]
+[ext_resource type="Texture2D" uid="uid://bujctld1ti4rr" path="res://sprites/CombatScene/InterfazCombateMejor.png" id="1_vm6bf"]
+[ext_resource type="PackedScene" uid="uid://bnnif1o0yxtrx" path="res://escenas/Barras/EnergiaPjBar.tscn" id="2_n6w7t"]
+[ext_resource type="PackedScene" uid="uid://dd5e4tvsklkrt" path="res://escenas/Barras/AccionPjBar.tscn" id="3_f7fw7"]
+[ext_resource type="PackedScene" uid="uid://k0jjl2q5urji" path="res://escenas/Barras/health_bar.tscn" id="4_eygkk"]
+[ext_resource type="Script" uid="uid://cf2i7cxylu0xi" path="res://Scripts/ProgressBarComponent.gd" id="4_f7fw7"]
+[ext_resource type="PackedScene" uid="uid://boflbyv7nyrm3" path="res://escenas/Barras/AccionEnemyBar.tscn" id="5_1vrmd"]
+[ext_resource type="PackedScene" uid="uid://r6i6m312ngmd" path="res://escenas/Barras/VidaEnemigoBar.tscn" id="6_8qhxp"]
+[ext_resource type="Script" uid="uid://dfbt4c47dfs8h" path="res://Scripts/Relacionados con la UI de combate/ResultPanel.gd" id="9_eygkk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huihk"]
+size = Vector2(110.5, 81)
+
+[node name="CombatUI" type="CanvasLayer" groups=["combat_ui"]]
+script = ExtResource("1_n6w7t")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_as_relative = false
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 1148.0
+offset_bottom = 644.0
+texture = ExtResource("1_vm6bf")
+expand_mode = 1
+
+[node name="EnergiaPjBar" parent="TextureRect" instance=ExtResource("2_n6w7t")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 958.0
+offset_top = 333.0
+offset_right = 1257.0
+offset_bottom = 385.0
+script = ExtResource("4_f7fw7")
+
+[node name="AccionPjBar" parent="TextureRect" instance=ExtResource("3_f7fw7")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 957.0
+offset_top = 363.0
+offset_right = 1256.0
+offset_bottom = 415.0
+script = ExtResource("4_f7fw7")
+
+[node name="HealtPJBar" parent="TextureRect" instance=ExtResource("4_eygkk")]
+unique_name_in_owner = true
+z_index = 2
+layout_mode = 0
+offset_left = 958.0
+offset_top = 303.0
+offset_right = 1257.0
+offset_bottom = 355.0
+script = ExtResource("4_f7fw7")
+
+[node name="AccionEnemyBar" parent="TextureRect" instance=ExtResource("5_1vrmd")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 421.0
+offset_top = 445.0
+offset_right = 720.0
+offset_bottom = 497.0
+script = ExtResource("4_f7fw7")
+
+[node name="EnergiaEnemyBar" parent="TextureRect" instance=ExtResource("2_n6w7t")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 420.0
+offset_top = 415.0
+offset_right = 719.0
+offset_bottom = 467.0
+script = ExtResource("4_f7fw7")
+
+[node name="HealthBar" parent="TextureRect" instance=ExtResource("6_8qhxp")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 419.0
+offset_top = 386.0
+offset_right = 718.0
+offset_bottom = 438.0
+script = ExtResource("4_f7fw7")
+
+[node name="GuardButtom" type="Area2D" parent="TextureRect"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect/GuardButtom"]
+position = Vector2(886.75, 550.5)
+shape = SubResource("RectangleShape2D_huihk")
+
+[node name="EnemySpriteSlot" type="Node2D" parent="TextureRect"]
+position = Vector2(423, 255)
+
+[node name="ResultPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 197.0
+offset_top = 134.0
+offset_right = 686.0
+offset_bottom = 353.0
+script = ExtResource("9_eygkk")
+
+[node name="Label" type="Label" parent="ResultPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RematchHint" type="Label" parent="ResultPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

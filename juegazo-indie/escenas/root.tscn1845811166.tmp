@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://chkvyncxq3leg"]
+
+[ext_resource type="PackedScene" uid="uid://cw8a5bm10ifsw" path="res://escenas/mundo.tscn" id="1_pq8q7"]
+[ext_resource type="Script" uid="uid://d3ttxtnct1fy7" path="res://Scripts/root.gd" id="1_vvh5c"]
+[ext_resource type="PackedScene" uid="uid://hs28l2ylyluo" path="res://escenas/combat_ui.tscn" id="3_l0va0"]
+[ext_resource type="Script" uid="uid://dw047tn6dfl3s" path="res://Scripts/InputComponent.gd" id="4_28aoi"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_vvh5c")
+
+[node name="Node2D" parent="." instance=ExtResource("1_pq8q7")]
+
+[node name="CombatUI" parent="." instance=ExtResource("3_l0va0")]
+
+[node name="InputComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_28aoi")
+metadata/_custom_type_script = "uid://dw047tn6dfl3s"
