@@ -1,4 +1,3 @@
-# CombatUI.gd
 extends CanvasLayer
 
 @onready var player_health_bar:  ProgressBarComponent = $TextureRect/HealtPJBar
@@ -8,129 +7,249 @@ extends CanvasLayer
 @onready var enemy_stamina_bar:  ProgressBarComponent = $TextureRect/EnergiaEnemyBar
 @onready var enemy_action_bar:   ProgressBarComponent = $TextureRect/AccionEnemyBar
 @onready var enemy_sprite_slot:  Node2D               = $TextureRect/EnemySpriteSlot
-@onready var result_panel:       Control               = $ResultPanel
-@onready var action_buttons:     Node2D                = $TextureRect/GuardButtom
+@onready var result_panel:       ResultPanel          = $ResultPanel
+@onready var action_buttons:     Node2D               = $TextureRect/GuardButtom
 
 var _turn_component:    TurnComponent    = null
 var _luis_ref:          Luis             = null
 var _enemy_action_ref:  ActionComponent  = null
 var _enemy_stamina_ref: StaminaComponent = null
+var _enemy_health_ref:  Health_Component = null
 var _enemy_data:        Dictionary       = {}
+var _is_player_turn:    bool             = false
+var _combat_over:       bool             = false
 
 func _ready() -> void:
 	add_to_group("combat_ui")
 	result_panel.hide()
 	action_buttons.hide()
+	print("[CombatUI] Listo")
 
 func initialize(data: Dictionary, luis: Luis) -> void:
+	print("[CombatUI] Inicializando combate")
+	_combat_over       = false
+	_is_player_turn    = false
 	_luis_ref          = luis
 	_enemy_action_ref  = data.get("action_component")
 	_enemy_stamina_ref = data.get("stamina_component")
+	_enemy_health_ref  = data.get("health_component")
 	_enemy_data        = data
 
-	# ── Salud del jugador ──────────────────────────────────────
-	player_health_bar.connect_to_health(luis.health_component)
+	await get_tree().process_frame
 
-	# ── Energía del jugador: empieza en cero ───────────────────
-	luis.stamina_component.reset()
-	luis.stamina_component.stamina_changed.connect(
-		func(cur, max):
-			player_stamina_bar.set_max(max)
+	# Setup barras
+	player_health_bar.setup_bars(
+		player_health_bar.get_node("Background"),
+		player_health_bar.get_node("TopBar"),
+		player_health_bar.get_node("BottomBar")
+	)
+	player_stamina_bar.setup_bars(
+		player_stamina_bar.get_node("Background"),
+		player_stamina_bar.get_node("TopBar"),
+		player_stamina_bar.get_node("BottomBar")
+	)
+	player_action_bar.setup_bars(
+		player_action_bar.get_node("Background"),
+		player_action_bar.get_node("TopBar"),
+		player_action_bar.get_node("BottomBar")
+	)
+	enemy_health_bar.setup_bars(
+		enemy_health_bar.get_node("Background"),
+		enemy_health_bar.get_node("TopBar"),
+		enemy_health_bar.get_node("BottomBar")
+	)
+	enemy_stamina_bar.setup_bars(
+		enemy_stamina_bar.get_node("Background"),
+		enemy_stamina_bar.get_node("TopBar"),
+		enemy_stamina_bar.get_node("BottomBar")
+	)
+	enemy_action_bar.setup_bars(
+		enemy_action_bar.get_node("Background"),
+		enemy_action_bar.get_node("TopBar"),
+		enemy_action_bar.get_node("BottomBar")
+	)
+
+	await get_tree().process_frame
+
+	# Salud jugador
+	player_health_bar.connect_to_health(_luis_ref.health_component)
+
+	# Stamina jugador
+	_luis_ref.stamina_component.reset()
+	_luis_ref.stamina_component.stamina_changed.connect(
+		func(cur, max_val):
+			player_stamina_bar.set_max(max_val)
 			player_stamina_bar.set_value(cur)
 	)
-	player_stamina_bar.set_max(luis.stamina_component.max_stamina)
+	player_stamina_bar.set_max(_luis_ref.stamina_component.max_stamina)
 	player_stamina_bar.set_value(0.0)
 
-	# ── Acción del jugador: empieza en cero ────────────────────
-	luis.action_component.reset()
-	luis.action_component.action_changed.connect(
-		func(cur, _max):
+	# Acción jugador
+	_luis_ref.action_component.reset()
+	_luis_ref.action_component.action_changed.connect(
+		func(cur, max_val):
+			player_action_bar.set_max(max_val)
 			player_action_bar.set_value(cur)
 	)
 	player_action_bar.set_max(100.0)
 	player_action_bar.set_value(0.0)
 
-	# ── Salud del enemigo ──────────────────────────────────────
-	enemy_health_bar.connect_to_health(data.get("health_component"))
+	# Salud enemigo
+	enemy_health_bar.connect_to_health(_enemy_health_ref)
 
-	# ── Energía del enemigo: empieza en cero ───────────────────
+	# Stamina enemigo
 	_enemy_stamina_ref.reset()
 	_enemy_stamina_ref.stamina_changed.connect(
-		func(cur, max):
-			enemy_stamina_bar.set_max(max)
+		func(cur, max_val):
+			enemy_stamina_bar.set_max(max_val)
 			enemy_stamina_bar.set_value(cur)
 	)
 	enemy_stamina_bar.set_max(data.get("max_stamina", 100.0))
 	enemy_stamina_bar.set_value(0.0)
 
-	# ── Acción del enemigo: empieza en cero ────────────────────
+	# Acción enemigo
 	_enemy_action_ref.reset()
 	_enemy_action_ref.action_changed.connect(
-		func(cur, _max):
+		func(cur, max_val):
+			enemy_action_bar.set_max(max_val)
 			enemy_action_bar.set_value(cur)
 	)
 	enemy_action_bar.set_max(100.0)
 	enemy_action_bar.set_value(0.0)
 
-	# ── Sprite del enemigo ─────────────────────────────────────
+	# Sprite del enemigo
 	var sprite_node = data.get("sprite_node", null)
 	if is_instance_valid(sprite_node):
 		sprite_node.get_parent().remove_child(sprite_node)
 		enemy_sprite_slot.add_child(sprite_node)
 		sprite_node.position = Vector2.ZERO
+		print("[CombatUI] Sprite del enemigo añadido")
 
-	# ── TurnComponent ──────────────────────────────────────────
+	# TurnComponent
 	_turn_component = TurnComponent.new()
 	add_child(_turn_component)
 	_turn_component.player_turn_started.connect(_on_player_turn)
 	_turn_component.enemy_turn_started.connect(_on_enemy_turn)
 
-	luis.action_component.action_ready.connect(_turn_component.notify_player_ready)
+	_luis_ref.action_component.action_ready.connect(_turn_component.notify_player_ready)
 	_enemy_action_ref.action_ready.connect(_turn_component.notify_enemy_ready)
 
-	# Arranca todo
-	luis.stamina_component.start_regen()
+	# Detección de muertes
+	_luis_ref.health_component.died.connect(_on_player_died)
+	_enemy_health_ref.died.connect(_on_enemy_died)
+
+	# Arrancar
+	_luis_ref.stamina_component.start_regen()
 	_enemy_stamina_ref.start_regen()
-	luis.action_component.start_filling()
+	_luis_ref.action_component.start_filling()
 	_enemy_action_ref.start_filling()
 
+	_turn_component.start_waiting()
+
+	# Señales del panel de resultado
 	result_panel.rematch_requested.connect(_on_rematch_requested)
+	result_panel.timeout_exit.connect(_on_timeout_exit)
+
+	print("[CombatUI] Inicialización completa")
+
+# ── Turnos ──────────────────────────────────────────────────────────────────
 
 func _on_player_turn() -> void:
+	if _combat_over:
+		return
+	print("[CombatUI] Turno del jugador")
+	_is_player_turn = true
+	_luis_ref.action_component.pause_filling()
+	_enemy_action_ref.pause_filling()
+	_luis_ref.stamina_component.pause_regen()
+	_enemy_stamina_ref.pause_regen()
+	action_buttons.show()
+
+func on_attack_pressed() -> void:
+	if not _is_player_turn or _combat_over:
+		return
+	print("[CombatUI] Jugador ataca")
+	_is_player_turn = false
+	action_buttons.hide()
+
+	_luis_ref.stamina_component.spend(20.0)
+	_enemy_health_ref.damage(10.0)
+	print("[CombatUI] Enemigo HP: ", _enemy_health_ref.current_health)
+
+	if _combat_over:
+		return
+	_end_player_turn()
+
+func _end_player_turn() -> void:
+	_luis_ref.action_component.consume()
+	_luis_ref.stamina_component.resume_regen()
+	_enemy_stamina_ref.resume_regen()
+	_luis_ref.action_component.resume_filling()
+	_enemy_action_ref.resume_filling()
+	_turn_component.resume_after_player()
+
+func _on_enemy_turn() -> void:
+	if _combat_over:
+		return
+	print("[CombatUI] Turno del enemigo")
+	_luis_ref.action_component.pause_filling()
+	_enemy_action_ref.pause_filling()
+	_luis_ref.stamina_component.pause_regen()
+	_enemy_stamina_ref.pause_regen()
+	action_buttons.hide()
+
+	_enemy_stamina_ref.spend(20.0)
+	_luis_ref.health_component.damage(10.0)
+	print("[CombatUI] Luis HP: ", _luis_ref.health_component.current_health)
+
+	if _combat_over:
+		return
+	_end_enemy_turn()
+
+func _end_enemy_turn() -> void:
+	_enemy_action_ref.consume()
+	_luis_ref.stamina_component.resume_regen()
+	_enemy_stamina_ref.resume_regen()
+	_luis_ref.action_component.resume_filling()
+	_enemy_action_ref.resume_filling()
+	_turn_component.resume_after_enemy()
+
+# ── Resultados ──────────────────────────────────────────────────────────────
+
+func _on_player_died() -> void:
+	if _combat_over:
+		return
+	_combat_over = true
+	print("[CombatUI] Luis ha muerto → derrota")
+	_stop_all()
+	action_buttons.hide()
+	result_panel.show_result("defeat")
+
+func _on_enemy_died() -> void:
+	if _combat_over:
+		return
+	_combat_over = true
+	print("[CombatUI] Enemigo ha muerto → victoria")
+	_stop_all()
+	action_buttons.hide()
+	result_panel.show_result("victory")
+
+func _stop_all() -> void:
 	_luis_ref.action_component.stop_filling()
 	_enemy_action_ref.stop_filling()
 	_luis_ref.stamina_component.stop_regen()
 	_enemy_stamina_ref.stop_regen()
-	action_buttons.show()
-
-func _on_attack_input() -> void:
-	var enemy_health: Health_Component = _enemy_data.get("health_component")
-	if is_instance_valid(enemy_health):
-		enemy_health.damage(10.0)
-	_end_player_turn()
-
-func _end_player_turn() -> void:
-	action_buttons.hide()
-	_luis_ref.action_component.consume()
-	_turn_component.resume_after_player()
-	_luis_ref.stamina_component.start_regen()
-	_enemy_stamina_ref.start_regen()
-	_luis_ref.action_component.start_filling()
-	_enemy_action_ref.start_filling()
-
-func _on_enemy_turn() -> void:
-	action_buttons.hide()
-	_luis_ref.health_component.damage(10.0)
-	_enemy_action_ref.consume()
-	await get_tree().create_timer(1.2).timeout
-	_turn_component.resume_after_enemy()
-	_luis_ref.stamina_component.start_regen()
-	_enemy_stamina_ref.start_regen()
-	_luis_ref.action_component.start_filling()
-	_enemy_action_ref.start_filling()
 
 func _on_rematch_requested() -> void:
+	print("[CombatUI] Revancha solicitada")
+	SceneCombat.resolve("rematch")
 	SceneCombat.rematch()
+
+func _on_timeout_exit() -> void:
+	print("[CombatUI] Tiempo agotado, saliendo")
+	SceneCombat.resolve("escape")
+	if is_instance_valid(SceneCombat._enemy_ref):
+		SceneCombat._enemy_ref.queue_free()
 
 func return_sprite_to_enemy() -> void:
 	if enemy_sprite_slot.get_child_count() == 0:
@@ -140,3 +259,4 @@ func return_sprite_to_enemy() -> void:
 	if is_instance_valid(SceneCombat._enemy_ref):
 		SceneCombat._enemy_ref.add_child(sprite_node)
 		sprite_node.position = Vector2.ZERO
+		print("[CombatUI] Sprite devuelto al enemigo")

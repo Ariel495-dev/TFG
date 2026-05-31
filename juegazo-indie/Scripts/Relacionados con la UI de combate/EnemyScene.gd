@@ -4,8 +4,8 @@ class_name EnemyScene extends CharacterBody2D
 @export var enemy_name:    String       = "Goblin"
 @export var max_hp:        float        = 80.0
 @export var max_stamina:   float        = 100.0
-@export var stamina_regen: float        = 4.0
-@export var action_regen:  float        = 15.0
+@export var stamina_regen: float        = 80.0   # x20 más rápido para debug
+@export var action_regen:  float        = 300.0  # x20 más rápido para debug
 @export var attack:        float        = 12.0
 @export var defense:       float        = 4.0
 @export var xp_reward:     float        = 30.0
@@ -21,12 +21,12 @@ class_name EnemyScene extends CharacterBody2D
 @onready var animated_sprite_2d:       AnimatedSprite2D       = $AnimatedSprite2D
 
 func _ready() -> void:
-	health_component.max_health      = max_hp
-	health_component.current_health  = max_hp
-	stamina_component.set_max(max_stamina)
-	stamina_component.set_regen(stamina_regen)
-	action_component.regen_rate      = action_regen
-	experience_component.xp_amount   = xp_reward
+	# Inicializar componentes con los valores de la rata/enemigo
+	health_component.initialize(max_hp)
+	stamina_component.initialize(max_stamina, stamina_regen)
+	action_component.initialize(action_regen)
+	
+	experience_component.xp_amount = xp_reward
 	soul_reward_component.soul_amount = soul_reward
 
 	if sprite_frames != null:
@@ -41,6 +41,7 @@ func _on_combat_requested(data: Dictionary) -> void:
 	data["health_component"]  = health_component
 	data["stamina_component"] = stamina_component
 	data["action_component"]  = action_component
+	data["max_stamina"]       = max_stamina
 	SceneCombat.start(data, self)
 
 func _on_died() -> void:
@@ -49,14 +50,19 @@ func _on_died() -> void:
 	combat_trigger_component.mark_defeated()
 
 func _on_rematch_ready() -> void:
+	# Resetear componentes para la revancha
 	health_component.current_health = max_hp
+	health_component._emit()
+	
 	stamina_component.reset()
 	action_component.reset()
+	
 	var data = _build_data()
 	data["sprite_node"]       = animated_sprite_2d
 	data["health_component"]  = health_component
 	data["stamina_component"] = stamina_component
 	data["action_component"]  = action_component
+	data["max_stamina"]       = max_stamina
 	SceneCombat.start(data, self)
 
 func _build_data() -> Dictionary:

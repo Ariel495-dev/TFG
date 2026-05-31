@@ -1,31 +1,35 @@
+# Health_Component.gd
 class_name Health_Component extends Node
 
-
-signal health_changed(current : float , max : float)
+signal health_changed(current: float, max: float)
 signal died
 
-var max_health := 100.0
-var current_health := 0.0
+var max_health: float = 100.0
+var current_health: float = 0.0
 
-func initalize(p_max_health):
+func initialize(p_max_health: float) -> void:
+	print("[HealthComponent] Initialize max_health=", p_max_health)
 	max_health = p_max_health
 	current_health = max_health
 	_emit()
-	
+
 func _ready() -> void:
-	current_health = max_health
-	_emit()
-	
-func damage(amount :float) -> void:
+	if current_health == 0.0 and max_health > 0.0:
+		current_health = max_health
+		_emit()
+
+func damage(amount: float) -> void:
+	print("[HealthComponent] Damage ", amount, ", current=", current_health)
 	current_health = clamp(current_health - amount, 0.0, max_health)
 	_emit()
 	if current_health == 0.0:
+		print("[HealthComponent] Died")
 		died.emit()
-		
+
 func heal(amount: float) -> void:
+	print("[HealthComponent] Heal ", amount, ", current=", current_health)
 	current_health = clamp(current_health + amount, 0.0, max_health)
 	_emit()
-	
+
 func _emit() -> void:
 	health_changed.emit(current_health, max_health)
-	print("HP: %d / %d" % [current_health, max_health])

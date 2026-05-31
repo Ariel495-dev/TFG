@@ -1,4 +1,3 @@
-# root.gd
 extends Node
 
 @onready var world:           Node2D         = $Node2D
@@ -6,14 +5,18 @@ extends Node
 @onready var input_component: InputComponent = $InputComponent
 
 func _ready() -> void:
-	input_component.attack_pressed.connect(_on_attack_pressed)
+	print("[Root] Inicializando")
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	input_component.process_mode = Node.PROCESS_MODE_ALWAYS
 
+	input_component.attack_pressed.connect(_on_attack_pressed)
+	input_component.rematch_pressed.connect(_on_rematch_pressed)
 	input_component.moved.connect(luis.on_move_input)
 	input_component.sprint_changed.connect(luis.on_sprint_input)
-	input_component.hurt_pressed.connect(luis.on_hurt_input)
-	input_component.heal_pressed.connect(luis.on_heal_input)
+
 	SceneCombat.combat_started.connect(_on_combat_started)
 	SceneCombat.combat_ended.connect(_on_combat_ended)
+	print("[Root] Listo")
 
 func _process(_delta: float) -> void:
 	input_component.update()
@@ -23,8 +26,15 @@ func _on_combat_started(_data: Dictionary) -> void:
 
 func _on_combat_ended(_result: String) -> void:
 	world.show()
-	
+
 func _on_attack_pressed() -> void:
 	var combat_ui = get_tree().get_first_node_in_group("combat_ui")
 	if is_instance_valid(combat_ui):
-		combat_ui._on_attack_input()
+		combat_ui.on_attack_pressed()
+
+func _on_rematch_pressed() -> void:
+	var combat_ui = get_tree().get_first_node_in_group("combat_ui")
+	if is_instance_valid(combat_ui) and combat_ui.visible:
+		var result_panel = combat_ui.get_node("ResultPanel")
+		if is_instance_valid(result_panel) and result_panel.visible:
+			result_panel.rematch_requested.emit()
