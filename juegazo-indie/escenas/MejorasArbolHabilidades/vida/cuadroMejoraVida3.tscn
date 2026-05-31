@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://beeq3xbxwsiok"]
+
+[ext_resource type="Texture2D" uid="uid://bd4xpk7u4dvxd" path="res://sprites/Unallowed/vidaMejoraUnallowedTFG.png" id="1_wibsj"]
+[ext_resource type="Texture2D" uid="uid://vl3qs55tdy86" path="res://sprites/Allowed/vidaMejoraAnallowedTFG.png" id="2_jqqyl"]
+[ext_resource type="Texture2D" uid="uid://dqfbgsv0acgp3" path="res://sprites/objetos/fragmentoDeEstrellaTFG.png" id="3_vvnuh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mitr5"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wibsj"]
+size = Vector2(53, 66)
+
+[node name="vida3" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 197.0
+offset_top = 126.0
+offset_right = 237.0
+offset_bottom = 166.0
+
+[node name="Unallowed" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 86.0
+offset_bottom = 77.0
+texture = ExtResource("1_wibsj")
+expand_mode = 1
+
+[node name="Allowed" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 86.0
+offset_bottom = 77.0
+texture = ExtResource("2_jqqyl")
+expand_mode = 1
+
+[node name="polvoEstrella" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -34.0
+offset_top = 20.0
+offset_right = 61.0
+offset_bottom = 96.0
+texture = ExtResource("3_vvnuh")
+expand_mode = 1
+
+[node name="Precio" type="Label" parent="polvoEstrella"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 26.0
+offset_right = 38.0
+offset_bottom = 49.0
+text = "25
+"
+label_settings = SubResource("LabelSettings_mitr5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cantidad" type="Label" parent="."]
+layout_mode = 0
+offset_left = -13.0
+offset_top = -4.0
+offset_right = 6.0
+offset_bottom = 71.0
+text = "10
+
+"
+label_settings = SubResource("LabelSettings_37ymx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(5.5, 8)
+shape = SubResource("RectangleShape2D_wibsj")
