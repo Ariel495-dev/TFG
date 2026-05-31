@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx45k17hd7oq0"]
+
+[ext_resource type="Texture2D" uid="uid://ctf0e0edfyia2" path="res://sprites/Menus/pantallaVacía.png" id="1_5ivjj"]
+[ext_resource type="Texture2D" uid="uid://hfy1m7px32ue" path="res://sprites/Menus/frameInterferencia.png" id="1_7r6o8"]
+[ext_resource type="Script" uid="uid://cx8q7tybykcht" path="res://escenas/escena_intermedia_menus.gd" id="1_ici2o"]
+[ext_resource type="Texture2D" uid="uid://bhkxlyvpd2i85" path="res://sprites/Menus/frameInterferencia1.png" id="2_ici2o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w4002"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7r6o8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ici2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_7r6o8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ici2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_7r6o8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ici2o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5ivjj")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_ici2o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(571.5, 318.5)
+scale = Vector2(0.5942708, 0.6506148)
+sprite_frames = SubResource("SpriteFrames_w4002")
+frame_progress = 0.59848887

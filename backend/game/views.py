@@ -2,8 +2,6 @@
 import json
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,8 +12,14 @@ from .serializers import (
 )
 
 
-def get_player_from_token(token):
-    """Helper para obtener jugador por token"""
+def get_player_from_request(request):
+    """Helper para obtener jugador por token del header Authorization"""
+    token = request.headers.get('Authorization')
+    if not token:
+        return None
+    # Soportar formato "Bearer TOKEN" o solo "TOKEN"
+    if token.startswith('Bearer '):
+        token = token[7:]
     try:
         return Player.objects.get(session_token=token)
     except Player.DoesNotExist:
@@ -28,7 +32,6 @@ class RegisterView(APIView):
         serializer = PlayerRegisterSerializer(data=request.data)
         if serializer.is_valid():
             player = serializer.save()
-            # Generar token de sesión
             token = player.generate_session_token(request.data['password'])
             player.save()
             return Response({
@@ -59,27 +62,19 @@ class LoginView(APIView):
         return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-# ============ 3. VERIFICAR TOKEN - GET con query params ============
+# ============ 3. VERIFICAR TOKEN - GET sin parámetros (token en header) ============
 class VerifyTokenView(APIView):
     def get(self, request):
-        # Query param: ?token=xxx
-        token = request.query_params.get('token')
-        if not token:
-            return Response({'valid': False, 'error': 'Token requerido'}, status=status.HTTP_400_BAD_REQUEST)
-
-        player = get_player_from_token(token)
+        player = get_player_from_request(request)
         if player:
             return Response({'valid': True, 'user_id': player.id, 'username': player.username})
-        return Response({'valid': False}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'valid': False, 'error': 'Token inválido o ausente'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-# ============ 4. OBTENER RANURAS - GET con query params ============
+# ============ 4. OBTENER RANURAS - GET (token en header) ============
 class GetSaveSlotsView(APIView):
     def get(self, request):
-        # Query params: ?token=xxx
-        token = request.query_params.get('token')
-        player = get_player_from_token(token)
-
+        player = get_player_from_request(request)
         if not player:
             return Response({'error': 'Sesión inválida'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -88,21 +83,17 @@ class GetSaveSlotsView(APIView):
         return Response({'slots': serializer.data})
 
 
-# ============ 5. OBTENER RANURA ESPECÍFICA - GET con path param y query params ============
+# ============ 5. OBTENER RANURA ESPECÍFICA - GET con path param ============
 class GetSaveSlotView(APIView):
     def get(self, request, slot_number):
         # Path param: slot_number
-        # Query params: ?token=xxx
-        token = request.query_params.get('token')
-        player = get_player_from_token(token)
-
+        player = get_player_from_request(request)
         if not player:
             return Response({'error': 'Sesión inválida'}, status=status.HTTP_401_UNAUTHORIZED)
 
         slot = get_object_or_404(SaveSlot, player=player, slot_number=slot_number)
         serializer = SaveSlotSerializer(slot)
 
-        # Obtener mejoras desbloqueadas
         upgrades = SaveSlotUpgrade.objects.filter(save_slot=slot).select_related('upgrade')
         upgrades_data = [{'upgrade_id': u.upgrade.upgrade_id, 'unlocked_at': u.unlocked_at} for u in upgrades]
 
@@ -116,10 +107,8 @@ class GetSaveSlotView(APIView):
 class CreateSaveSlotView(APIView):
     def post(self, request, slot_number):
         # Path param: slot_number
-        # Body: {"token": "xxx", "level_up_count": 0, ...}
-        token = request.data.get('token')
-        player = get_player_from_token(token)
-
+        # Body: {"level_up_count": 0, "stars": 0, ...}
+        player = get_player_from_request(request)
         if not player:
             return Response({'error': 'Sesión inválida'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -138,22 +127,21 @@ class CreateSaveSlotView(APIView):
         return Response({'success': True, 'slot': slot.slot_number}, status=status.HTTP_201_CREATED)
 
 
-# ============ 7. ACTUALIZAR RANURA - PUT con path param, query params y body ============
+# ============ 7. ACTUALIZAR RANURA - PUT con path param, query param y body ============
 class UpdateSaveSlotView(APIView):
     def put(self, request, slot_number):
         # Path param: slot_number
-        # Query params: ?token=xxx&partial=true
-        token = request.query_params.get('token')
+        # Query param: ?partial=true
+        # Token en header Authorization
         partial = request.query_params.get('partial', 'false').lower() == 'true'
 
-        player = get_player_from_token(token)
+        player = get_player_from_request(request)
         if not player:
             return Response({'error': 'Sesión inválida'}, status=status.HTTP_401_UNAUTHORIZED)
 
         slot = get_object_or_404(SaveSlot, player=player, slot_number=slot_number)
 
         if partial:
-            # Actualización parcial
             if 'level_up_count' in request.data:
                 slot.level_up_count = request.data['level_up_count']
             if 'x2_active' in request.data:
@@ -165,7 +153,6 @@ class UpdateSaveSlotView(APIView):
             if 'experiencia' in request.data:
                 slot.experiencia = request.data['experiencia']
         else:
-            # Actualización completa
             slot.level_up_count = request.data.get('level_up_count', slot.level_up_count)
             slot.x2_active = request.data.get('x2_active', slot.x2_active)
             slot.stars = request.data.get('stars', slot.stars)
@@ -174,7 +161,6 @@ class UpdateSaveSlotView(APIView):
 
         slot.save()
 
-        # Actualizar totales del jugador
         player.total_stars = sum(s.stars for s in player.save_slots.all())
         player.total_fragments = sum(s.fragments for s in player.save_slots.all())
         player.save()
@@ -182,18 +168,18 @@ class UpdateSaveSlotView(APIView):
         return Response({'success': True, 'message': 'Ranura actualizada'})
 
 
-# ============ 8. ELIMINAR RANURA - DELETE con path param y query params ============
+# ============ 8. ELIMINAR RANURA - DELETE con path param y query param ============
 class DeleteSaveSlotView(APIView):
     def delete(self, request, slot_number):
         # Path param: slot_number
-        # Query params: ?token=xxx&confirm=true
-        token = request.query_params.get('token')
+        # Query param: ?confirm=true
+        # Token en header Authorization
         confirm = request.query_params.get('confirm', 'false').lower() == 'true'
 
         if not confirm:
             return Response({'error': 'Se requiere confirmación (confirm=true)'}, status=status.HTTP_400_BAD_REQUEST)
 
-        player = get_player_from_token(token)
+        player = get_player_from_request(request)
         if not player:
             return Response({'error': 'Sesión inválida'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -206,19 +192,18 @@ class DeleteSaveSlotView(APIView):
 # ============ 9. DESBLOQUEAR MEJORA - POST con body JSON ============
 class UnlockUpgradeView(APIView):
     def post(self, request):
-        # Body: {"token": "xxx", "slot_number": 1, "upgrade_id": "agilidad1"}
-        token = request.data.get('token')
+        # Body: {"slot_number": 1, "upgrade_id": "agilidad1"}
+        # Token en header Authorization
         slot_number = request.data.get('slot_number')
         upgrade_id = request.data.get('upgrade_id')
 
-        player = get_player_from_token(token)
+        player = get_player_from_request(request)
         if not player:
             return Response({'error': 'Sesión inválida'}, status=status.HTTP_401_UNAUTHORIZED)
 
         slot = get_object_or_404(SaveSlot, player=player, slot_number=slot_number)
         upgrade = get_object_or_404(Upgrade, upgrade_id=upgrade_id)
 
-        # Verificar si ya está desbloqueada
         if SaveSlotUpgrade.objects.filter(save_slot=slot, upgrade=upgrade).exists():
             return Response({'error': 'Mejora ya desbloqueada'}, status=status.HTTP_400_BAD_REQUEST)
 

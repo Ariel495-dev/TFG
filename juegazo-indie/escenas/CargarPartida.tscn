@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqwlw7klju0pv"]
+
+[ext_resource type="Script" uid="uid://c5p2xmu38uyoe" path="res://escenas/cargar_partida.gd" id="1_t1r3r"]
+[ext_resource type="Texture2D" uid="uid://ctf0e0edfyia2" path="res://sprites/Menus/pantallaVacía.png" id="1_wiam0"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_t1r3r")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 1138.0
+offset_bottom = 641.0
+texture = ExtResource("1_wiam0")
+expand_mode = 1
+
+[node name="Partida1" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 405.0
+offset_top = 78.0
+offset_right = 710.0
+offset_bottom = 182.0
+text = "Partida1
+"
+
+[node name="Partida2" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 212.0
+offset_right = 713.0
+offset_bottom = 311.0
+text = "Partida2
+"
+
+[node name="Partida3" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 350.0
+offset_right = 708.0
+offset_bottom = 441.0
+text = "Partida3
+"
+
+[node name="Volver" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 489.0
+offset_right = 614.0
+offset_bottom = 567.0
+text = "Volver
+"

@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://chkvyncxq3leg"]
+[gd_scene load_steps=11 format=3 uid="uid://chkvyncxq3leg"]
 
-[ext_resource type="PackedScene" uid="uid://cw8a5bm10ifsw" path="res://escenas/mundo.tscn" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://d3ttxtnct1fy7" path="res://Scripts/root.gd" id="1_vvh5c"]
 [ext_resource type="Script" uid="uid://dw047tn6dfl3s" path="res://Scripts/InputComponent.gd" id="4_28aoi"]
 [ext_resource type="AudioStream" uid="uid://6ws726qa18ox" path="res://Sonidos/0531.MP3" id="4_ivxjp"]
 [ext_resource type="AudioStream" uid="uid://cgxty60kv4v8j" path="res://Sonidos/NOOOO.MP3" id="5_ivxjp"]
+[ext_resource type="PackedScene" uid="uid://dqwlw7klju0pv" path="res://escenas/CargarPartida.tscn" id="6_7jvhi"]
+[ext_resource type="PackedScene" uid="uid://ddfq14cccqld7" path="res://escenas/CrearSesion.tscn" id="7_yns5l"]
+[ext_resource type="PackedScene" uid="uid://dx45k17hd7oq0" path="res://escenas/EscenaIntermediaMenus.tscn" id="8_dkvrv"]
+[ext_resource type="PackedScene" uid="uid://dcew2i5hnbboy" path="res://escenas/IniciarSesion.tscn" id="9_lhqmo"]
+[ext_resource type="PackedScene" uid="uid://bbflnwu84muss" path="res://escenas/MainMenu.tscn" id="10_068fp"]
+[ext_resource type="PackedScene" uid="uid://blb1m0we6l0kg" path="res://escenas/Opciones.tscn" id="11_8fnu0"]
 
 [node name="Root" type="Node"]
 script = ExtResource("1_vvh5c")
-
-[node name="Node2D" parent="." instance=ExtResource("1_pq8q7")]
 
 [node name="InputComponent" type="Node" parent="."]
 unique_name_in_owner = true
@@ -22,3 +25,17 @@ stream = ExtResource("4_ivxjp")
 [node name="AudioStreamPlayerDeny" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ivxjp")
 volume_db = 0.39
+
+[node name="Menus" type="Node" parent="."]
+
+[node name="cargar_partida" parent="Menus" instance=ExtResource("6_7jvhi")]
+
+[node name="crear_sesion" parent="Menus" instance=ExtResource("7_yns5l")]
+
+[node name="escena_intermedia_menus" parent="Menus" instance=ExtResource("8_dkvrv")]
+
+[node name="iniciar_sesion" parent="Menus" instance=ExtResource("9_lhqmo")]
+
+[node name="main_menu" parent="Menus" instance=ExtResource("10_068fp")]
+
+[node name="opciones" parent="Menus" instance=ExtResource("11_8fnu0")]

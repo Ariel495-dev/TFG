@@ -1,19 +1,50 @@
-[gd_scene format=3 uid="uid://bbflnwu84muss"]
+[gd_scene load_steps=3 format=3 uid="uid://bbflnwu84muss"]
 
-[node name="Control" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[ext_resource type="Script" uid="uid://bscrpx68qsg36" path="res://escenas/main_menu.gd" id="1_0hp0g"]
+[ext_resource type="Texture2D" uid="uid://ctf0e0edfyia2" path="res://sprites/Menus/pantallaVacía.png" id="1_5p3c7"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Node" type="CanvasLayer"]
+script = ExtResource("1_0hp0g")
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 396.0
-offset_top = 181.0
-offset_right = 753.0
-offset_bottom = 213.0
-text = "Comenzar Partida
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1137.0
+offset_bottom = 642.0
+texture = ExtResource("1_5p3c7")
+expand_mode = 1
+
+[node name="Jugar" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 330.0
+offset_top = 49.0
+offset_right = 830.0
+offset_bottom = 199.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 45
+text = "Jugar
 "
+flat = true
+
+[node name="Operaciones" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 214.0
+offset_right = 716.0
+offset_bottom = 318.0
+text = "Opciones"
+
+[node name="Creditos" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 343.0
+offset_right = 652.0
+offset_bottom = 424.0
+text = "Creditos
+"
+
+[node name="SalirDelJuego" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 448.0
+offset_right = 683.0
+offset_bottom = 539.0
+text = "Salir del Juego"

@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddfq14cccqld7"]
+
+[ext_resource type="Texture2D" uid="uid://ctf0e0edfyia2" path="res://sprites/Menus/pantallaVacía.png" id="1_474g3"]
+[ext_resource type="Script" uid="uid://jjabpvyw531l" path="res://escenas/crear_sesion.gd" id="1_txe0b"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_txe0b")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 2.0
+offset_top = -20.0
+offset_right = 1144.0
+offset_bottom = 622.0
+texture = ExtResource("1_474g3")
+expand_mode = 1
+
+[node name="Enviar" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 304.0
+offset_right = 727.0
+offset_bottom = 430.0
+text = "Submit"
+
+[node name="Volver" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 465.0
+offset_right = 689.0
+offset_bottom = 539.0
+text = "Volver
+"
+
+[node name="nombre" type="LineEdit" parent="TextureRect"]
+layout_mode = 0
+offset_left = 401.0
+offset_top = 87.0
+offset_right = 693.0
+offset_bottom = 144.0
+text = "nombre
+"
+alignment = 1
+
+[node name="contrasenha" type="LineEdit" parent="TextureRect"]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 157.0
+offset_right = 696.0
+offset_bottom = 206.0
+text = "contrasenha
+"
+alignment = 1
+
+[node name="confirmarContrasenha" type="LineEdit" parent="TextureRect"]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 221.0
+offset_right = 700.0
+offset_bottom = 266.0
+text = "confirmar contrasenha
+"
+alignment = 1

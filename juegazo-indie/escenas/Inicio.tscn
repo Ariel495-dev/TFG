@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckrrnydmccg2n"]
+
+[ext_resource type="Script" uid="uid://drfsrcoflebxo" path="res://escenas/inicio.gd" id="1_is37f"]
+[ext_resource type="Texture2D" uid="uid://ctf0e0edfyia2" path="res://sprites/Menus/pantallaVacía.png" id="2_a2m0w"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_is37f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1155.0
+offset_bottom = 637.0
+texture = ExtResource("2_a2m0w")
+expand_mode = 1
+
+[node name="CrearSesion" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 354.0
+offset_right = 782.0
+offset_bottom = 436.0
+text = "Crear Sesion"
+
+[node name="IniciarSesion" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 375.0
+offset_top = 90.0
+offset_right = 797.0
+offset_bottom = 310.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Iniciar Sesion
+"
+
+[node name="Cerrar" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 405.0
+offset_top = 455.0
+offset_right = 770.0
+offset_bottom = 538.0
+text = "Cerrar "

@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcew2i5hnbboy"]
+
+[ext_resource type="Script" uid="uid://qgvlp7o3sxwp" path="res://escenas/iniciar_sesion.gd" id="1_er8jo"]
+[ext_resource type="Texture2D" uid="uid://ctf0e0edfyia2" path="res://sprites/Menus/pantallaVacía.png" id="1_lnnqq"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_er8jo")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_right = 1142.0
+offset_bottom = 642.0
+texture = ExtResource("1_lnnqq")
+expand_mode = 1
+
+[node name="Volver" type="Button" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 438.0
+offset_top = 473.0
+offset_right = 710.0
+offset_bottom = 555.0
+text = "Volver
+
+"
+
+[node name="Iniciar" type="Button" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 278.0
+offset_right = 754.0
+offset_bottom = 427.0
+text = "Iniciar
+"
+
+[node name="nombre" type="LineEdit" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 142.0
+offset_right = 712.0
+offset_bottom = 195.0
+text = "nombre
+"
+alignment = 1
+
+[node name="contrasenha" type="LineEdit" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 417.0
+offset_top = 201.0
+offset_right = 710.0
+offset_bottom = 250.0
+text = "contrasenha
+"
+alignment = 1

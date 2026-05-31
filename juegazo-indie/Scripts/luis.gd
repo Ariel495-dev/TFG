@@ -1,5 +1,9 @@
-# Luis.gd
 class_name Luis extends CharacterBody2D
+
+# Añadir esta señal al principio del script
+signal estrella_changed(value: int)
+
+# ... resto de tus variables ...
 
 @onready var movement_component:     Movement_Component   = %Movement_Component
 @onready var health_component:       Health_Component     = %Health_Component
@@ -55,11 +59,12 @@ func add_xp(amount: float) -> void:
 
 func add_estrella() -> void:
 	estrellas += 1
+	estrella_changed.emit(estrellas)  # Añadir esta línea
 	print("[Luis] Estrellas: ", estrellas)
 
 func _on_died() -> void:
 	print("[Luis] Player died")
-	# Solo se resetea la experiencia, no los fragmentos ni las estrellas
 	experience_component.reset()
+	soul_component.set_souls(10)  # Al morir, reinicia a 10 fragmentos
 	global_position = spawn_position
 	health_component.initialize(player_max_health)
