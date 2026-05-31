@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cr7dksrmj1kl6"]
+[gd_scene load_steps=13 format=3 uid="uid://cr7dksrmj1kl6"]
 
 [ext_resource type="Script" uid="uid://canynap30gjcb" path="res://Scripts/Relacionados con la UI de combate/EnemyScene.gd" id="1_rfijm"]
 [ext_resource type="Script" uid="uid://bumwoq2yk5oc5" path="res://Scripts/Health_Component.gd" id="2_cclo6"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://b1gxann1mewtu" path="res://Scripts/Relacionados con la UI de combate/StaminaComponent.gd" id="3_bfbk4"]
 [ext_resource type="Script" uid="uid://botochnjjpw4m" path="res://Scripts/Relacionados con la UI de combate/ActionComponent.gd" id="4_kkeca"]
 [ext_resource type="Script" uid="uid://b0fidng2aogcq" path="res://Scripts/Relacionados con la UI de combate/SoulRewardComponent.gd" id="6_5ipi8"]
-[ext_resource type="Script" uid="uid://bukjmjvy85oi2" path="res://Scripts/Relacionados con la UI de combate/ExperienceComponent.gd" id="7_1tfgv"]
 [ext_resource type="Script" uid="uid://d3unx4c4rnnfx" path="res://Scripts/Relacionados con la UI de combate/CombatTriggerComponent.gd" id="8_5ipi8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j2h8g"]
@@ -36,6 +35,15 @@ size = Vector2(441, 326)
 
 [node name="Rata" type="CharacterBody2D"]
 script = ExtResource("1_rfijm")
+enemy_name = null
+max_hp = null
+max_stamina = null
+stamina_regen = null
+action_regen = null
+attack = null
+defense = null
+xp_reward = null
+soul_reward = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(348, 137)
@@ -62,11 +70,6 @@ metadata/_custom_type_script = "uid://botochnjjpw4m"
 unique_name_in_owner = true
 script = ExtResource("6_5ipi8")
 metadata/_custom_type_script = "uid://b0fidng2aogcq"
-
-[node name="ExperienceComponent" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("7_1tfgv")
-metadata/_custom_type_script = "uid://bukjmjvy85oi2"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

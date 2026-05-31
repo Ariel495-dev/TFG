@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ljnk2jjx6tk1"]
+[gd_scene load_steps=5 format=3 uid="uid://ljnk2jjx6tk1"]
 
 [ext_resource type="Texture2D" uid="uid://c5dpcnq218j62" path="res://sprites/Unallowed/vampirismoMejoraUnallowedTFG.png" id="1_j5s8v"]
 [ext_resource type="Texture2D" uid="uid://djnl332gxlvww" path="res://sprites/Allowed/vampirismoMejoraAnallowedTFG.png" id="2_7as06"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_mitr5"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71ra8"]
-size = Vector2(52, 68)
 
 [node name="vampirismo" type="Control"]
 layout_mode = 3
@@ -52,21 +49,22 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "300
-
-
-
-
-
-
-
-"
+text = "300"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="cantidad" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 7)
-shape = SubResource("RectangleShape2D_71ra8")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -27.0
+offset_right = 32.0
+offset_bottom = 41.0
+flat = true

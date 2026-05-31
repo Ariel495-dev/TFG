@@ -1,11 +1,10 @@
-# EnemyScene.gd
 class_name EnemyScene extends CharacterBody2D
 
 @export var enemy_name:    String       = "Goblin"
 @export var max_hp:        float        = 80.0
 @export var max_stamina:   float        = 100.0
-@export var stamina_regen: float        = 80.0   # x20 más rápido para debug
-@export var action_regen:  float        = 300.0  # x20 más rápido para debug
+@export var stamina_regen: float        = 80.0
+@export var action_regen:  float        = 300.0
 @export var attack:        float        = 12.0
 @export var defense:       float        = 4.0
 @export var xp_reward:     float        = 30.0
@@ -15,18 +14,14 @@ class_name EnemyScene extends CharacterBody2D
 @onready var health_component:         Health_Component       = %Health_Component
 @onready var stamina_component:        StaminaComponent       = %StaminaComponent
 @onready var action_component:         ActionComponent        = %ActionComponent
-@onready var experience_component:     ExperienceComponent    = %ExperienceComponent
 @onready var soul_reward_component:    SoulRewardComponent    = %SoulRewardComponent
 @onready var combat_trigger_component: CombatTriggerComponent = %CombatTriggerComponent
 @onready var animated_sprite_2d:       AnimatedSprite2D       = $AnimatedSprite2D
 
 func _ready() -> void:
-	# Inicializar componentes con los valores de la rata/enemigo
 	health_component.initialize(max_hp)
 	stamina_component.initialize(max_stamina, stamina_regen)
 	action_component.initialize(action_regen)
-	
-	experience_component.xp_amount = xp_reward
 	soul_reward_component.soul_amount = soul_reward
 
 	if sprite_frames != null:
@@ -45,18 +40,18 @@ func _on_combat_requested(data: Dictionary) -> void:
 	SceneCombat.start(data, self)
 
 func _on_died() -> void:
-	experience_component.grant()
-	soul_reward_component.grant()
+	# Otorga XP y souls a Luis directamente
+	var luis: Luis = get_tree().get_first_node_in_group("player")
+	if is_instance_valid(luis):
+		luis.add_xp(xp_reward)
+		luis.add_fragmentos(soul_reward)
 	combat_trigger_component.mark_defeated()
 
 func _on_rematch_ready() -> void:
-	# Resetear componentes para la revancha
 	health_component.current_health = max_hp
 	health_component._emit()
-	
 	stamina_component.reset()
 	action_component.reset()
-	
 	var data = _build_data()
 	data["sprite_node"]       = animated_sprite_2d
 	data["health_component"]  = health_component
@@ -76,3 +71,4 @@ func _build_data() -> Dictionary:
 		"soul_reward":   soul_reward,
 		"sprite_frames": sprite_frames,
 	}
+	

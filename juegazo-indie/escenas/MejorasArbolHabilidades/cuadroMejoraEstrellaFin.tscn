@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyyp6h1cfvol8"]
+[gd_scene load_steps=5 format=3 uid="uid://cyyp6h1cfvol8"]
 
 [ext_resource type="Texture2D" uid="uid://nr84esiornqb" path="res://sprites/Unallowed/estrellaMejoraUnallowedTFG.png" id="1_71ra8"]
 [ext_resource type="Texture2D" uid="uid://bxnishu3duy63" path="res://sprites/Allowed/estrellaMejoraAllowedTFG.png" id="2_526qt"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_mitr5"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71ra8"]
-size = Vector2(52, 68)
 
 [node name="estrella" type="Control"]
 layout_mode = 3
@@ -39,33 +36,36 @@ expand_mode = 1
 
 [node name="polvoEstrella" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -23.0
-offset_top = 14.0
-offset_right = 72.0
-offset_bottom = 90.0
+offset_left = -21.0
+offset_top = 18.0
+offset_right = 79.0
+offset_bottom = 86.0
 texture = ExtResource("3_se2dv")
 expand_mode = 1
 
 [node name="Precio" type="Label" parent="polvoEstrella"]
 layout_mode = 0
-offset_left = -2.0
-offset_top = 26.0
-offset_right = 38.0
-offset_bottom = 49.0
-text = "1000
-
-
-
-
-
-
-"
+offset_left = -1.0
+offset_top = 22.0
+offset_right = 39.0
+offset_bottom = 45.0
+text = "1000"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="cantidad" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5
+"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 7)
-shape = SubResource("RectangleShape2D_71ra8")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -28.0
+offset_right = 32.0
+offset_bottom = 42.0
+flat = true

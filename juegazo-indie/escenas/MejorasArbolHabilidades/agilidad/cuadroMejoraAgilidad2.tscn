@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1x8x4e20c3jt"]
+[gd_scene load_steps=6 format=3 uid="uid://c1x8x4e20c3jt"]
 
 [ext_resource type="Texture2D" uid="uid://bjkqmejtg8ji1" path="res://sprites/Unallowed/agilidadMejoraUnallowedTFG.png" id="1_foboh"]
 [ext_resource type="Texture2D" uid="uid://dbwaj20hh6hea" path="res://sprites/Allowed/agilidadMejoraAnallowedTFG.png" id="2_tqs1t"]
@@ -10,16 +10,13 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_foboh"]
-size = Vector2(53, 68)
-
 [node name="agilidad2" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 197.0
+offset_left = 188.0
 offset_top = 126.0
-offset_right = 237.0
-offset_bottom = 166.0
+offset_right = 197.0
+offset_bottom = 149.0
 
 [node name="Unallowed" type="TextureRect" parent="."]
 layout_mode = 0
@@ -42,10 +39,10 @@ expand_mode = 1
 
 [node name="polvoEstrella" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -21.0
-offset_top = -10.0
-offset_right = 74.0
-offset_bottom = 66.0
+offset_left = -25.0
+offset_top = 19.0
+offset_right = 70.0
+offset_bottom = 95.0
 texture = ExtResource("3_qdu1q")
 expand_mode = 1
 
@@ -55,11 +52,7 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "5
-
-
-
-"
+text = "5"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -69,17 +62,16 @@ layout_mode = 0
 offset_left = -13.0
 offset_top = -4.0
 offset_right = 6.0
-offset_bottom = 71.0
-text = "10
-
-
-"
+offset_bottom = 29.0
+text = "10"
 label_settings = SubResource("LabelSettings_37ymx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5.5, 7)
-shape = SubResource("RectangleShape2D_foboh")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -26.0
+offset_right = 31.0
+offset_bottom = 42.0
+flat = true

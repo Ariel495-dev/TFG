@@ -1,17 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://h56potb4d1at"]
+[gd_scene load_steps=6 format=3 uid="uid://h56potb4d1at"]
 
 [ext_resource type="Texture2D" uid="uid://bjkqmejtg8ji1" path="res://sprites/Unallowed/agilidadMejoraUnallowedTFG.png" id="1_g8q62"]
 [ext_resource type="Texture2D" uid="uid://dbwaj20hh6hea" path="res://sprites/Allowed/agilidadMejoraAnallowedTFG.png" id="2_h0ydr"]
 [ext_resource type="Texture2D" uid="uid://dqfbgsv0acgp3" path="res://sprites/objetos/fragmentoDeEstrellaTFG.png" id="3_np6gi"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_mitr5"]
+[sub_resource type="LabelSettings" id="LabelSettings_807ku"]
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8q62"]
-size = Vector2(52.5, 68)
 
 [node name="agilidad4" type="Control"]
 layout_mode = 3
@@ -42,10 +39,10 @@ expand_mode = 1
 
 [node name="polvoEstrella" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -7.0
-offset_right = 72.0
-offset_bottom = 69.0
+offset_left = -22.0
+offset_top = 18.0
+offset_right = 73.0
+offset_bottom = 94.0
 texture = ExtResource("3_np6gi")
 expand_mode = 1
 
@@ -55,35 +52,27 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "75
-
-
-
-
-
-
-"
-label_settings = SubResource("LabelSettings_mitr5")
+text = "75"
+label_settings = SubResource("LabelSettings_807ku")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="cantidad" type="Label" parent="."]
 layout_mode = 0
 offset_left = -13.0
-offset_top = -4.0
+offset_top = -11.0
 offset_right = 6.0
-offset_bottom = 71.0
+offset_bottom = 64.0
 text = "20
-
-
-
 "
 label_settings = SubResource("LabelSettings_37ymx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(4.75, 7)
-shape = SubResource("RectangleShape2D_g8q62")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -27.0
+offset_right = 31.0
+offset_bottom = 42.0
+flat = true

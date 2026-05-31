@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccp2gqpcu8thb"]
+[gd_scene load_steps=6 format=3 uid="uid://ccp2gqpcu8thb"]
 
 [ext_resource type="Texture2D" uid="uid://bd4xpk7u4dvxd" path="res://sprites/Unallowed/vidaMejoraUnallowedTFG.png" id="1_h4avj"]
 [ext_resource type="Texture2D" uid="uid://vl3qs55tdy86" path="res://sprites/Allowed/vidaMejoraAnallowedTFG.png" id="2_0hli3"]
@@ -10,16 +10,13 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4avj"]
-size = Vector2(51, 67)
-
 [node name="vida4" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 197.0
 offset_top = 126.0
-offset_right = 237.0
-offset_bottom = 166.0
+offset_right = 206.0
+offset_bottom = 144.0
 
 [node name="Unallowed" type="TextureRect" parent="."]
 layout_mode = 0
@@ -55,28 +52,26 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "75
-
-"
+text = "75"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="cantidad" type="Label" parent="."]
 layout_mode = 0
-offset_left = -13.0
-offset_top = -4.0
-offset_right = 6.0
-offset_bottom = 71.0
-text = "10
-
-"
+offset_left = -16.0
+offset_top = -22.0
+offset_right = 3.0
+offset_bottom = 53.0
+text = "10"
 label_settings = SubResource("LabelSettings_37ymx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(4.5, 6.5)
-shape = SubResource("RectangleShape2D_h4avj")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -22.0
+offset_top = -27.0
+offset_right = 32.0
+offset_bottom = 41.0
+flat = true

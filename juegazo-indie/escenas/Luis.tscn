@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bfjpjxl5dnpeb"]
+[gd_scene load_steps=18 format=3 uid="uid://bfjpjxl5dnpeb"]
 
 [ext_resource type="Texture2D" uid="uid://cyam51w5sigkj" path="res://sprites/Luis/idleLuis.png" id="1_cvhc1"]
 [ext_resource type="Script" uid="uid://byh6wtcmvig50" path="res://Scripts/luis.gd" id="1_k0pdd"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://b1gxann1mewtu" path="res://Scripts/Relacionados con la UI de combate/StaminaComponent.gd" id="9_y1ybl"]
 [ext_resource type="Script" uid="uid://botochnjjpw4m" path="res://Scripts/Relacionados con la UI de combate/ActionComponent.gd" id="10_hcyaq"]
 [ext_resource type="Script" uid="uid://d34ces3djiec6" path="res://Scripts/SoulComponent.gd.gd" id="11_hcyaq"]
+[ext_resource type="PackedScene" uid="uid://cbmjju71hrrwv" path="res://escenas/MarcadorRecursos.tscn" id="12_p0c0h"]
+[ext_resource type="Script" uid="uid://bukjmjvy85oi2" path="res://Scripts/Relacionados con la UI de combate/ExperienceComponent.gd" id="13_mraiq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0pdd"]
 radius = 36.0
@@ -92,6 +94,7 @@ script = ExtResource("8_hcyaq")
 metadata/_custom_type_script = "uid://cf2i7cxylu0xi"
 
 [node name="HealthBar" parent="." instance=ExtResource("9_xarax")]
+z_index = 1
 offset_left = -1.0
 offset_top = -237.0
 offset_right = 249.0
@@ -111,3 +114,10 @@ metadata/_custom_type_script = "uid://botochnjjpw4m"
 unique_name_in_owner = true
 script = ExtResource("11_hcyaq")
 metadata/_custom_type_script = "uid://d34ces3djiec6"
+
+[node name="Recursos" parent="." instance=ExtResource("12_p0c0h")]
+
+[node name="ExperienceComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("13_mraiq")
+metadata/_custom_type_script = "uid://bukjmjvy85oi2"

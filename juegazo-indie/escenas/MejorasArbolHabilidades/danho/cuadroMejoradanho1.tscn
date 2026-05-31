@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckiyupme5a58s"]
+[gd_scene load_steps=6 format=3 uid="uid://ckiyupme5a58s"]
 
 [ext_resource type="Texture2D" uid="uid://dv6yhikc08a84" path="res://sprites/Unallowed/danhoMejoraUnallowedTFG.png" id="1_wmp5u"]
 [ext_resource type="Texture2D" uid="uid://vnwlsdcf3htw" path="res://sprites/Allowed/danhoMejoraAnallowedTFG.png" id="2_dmw3m"]
@@ -9,9 +9,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71ra8"]
-size = Vector2(52, 68)
 
 [node name="danho1" type="Control"]
 layout_mode = 3
@@ -55,13 +52,7 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "3
-
-
-
-
-
-"
+text = "3"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -74,17 +65,15 @@ offset_right = 6.0
 offset_bottom = 71.0
 text = "1
 
-
-
-
-
 "
 label_settings = SubResource("LabelSettings_37ymx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 7)
-shape = SubResource("RectangleShape2D_71ra8")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -28.0
+offset_right = 31.0
+offset_bottom = 41.0
+flat = true

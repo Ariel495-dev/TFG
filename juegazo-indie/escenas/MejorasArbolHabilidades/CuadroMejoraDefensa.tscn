@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd0cm12mr3kol"]
+[gd_scene load_steps=5 format=3 uid="uid://cd0cm12mr3kol"]
 
 [ext_resource type="Texture2D" uid="uid://c4eiyut1pv0cp" path="res://sprites/Unallowed/defensaMejoraUnallowedTFG.png" id="1_y037n"]
 [ext_resource type="Texture2D" uid="uid://yecu6i0mp2vt" path="res://sprites/Allowed/defensaMejoraAnallowedTFG.png" id="2_ormnu"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_mitr5"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71ra8"]
-size = Vector2(52, 68)
 
 [node name="defensa" type="Control"]
 layout_mode = 3
@@ -52,15 +49,7 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "150
-
-
-
-
-
-
-
-"
+text = "150"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -73,8 +62,10 @@ offset_bottom = 23.0
 text = "5
 "
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 7)
-shape = SubResource("RectangleShape2D_71ra8")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -22.0
+offset_top = -27.0
+offset_right = 32.0
+offset_bottom = 41.0
+flat = true

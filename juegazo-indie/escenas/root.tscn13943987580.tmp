@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://chkvyncxq3leg"]
+[gd_scene load_steps=4 format=3 uid="uid://chkvyncxq3leg"]
 
 [ext_resource type="PackedScene" uid="uid://cw8a5bm10ifsw" path="res://escenas/mundo.tscn" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://d3ttxtnct1fy7" path="res://Scripts/root.gd" id="1_vvh5c"]
 [ext_resource type="Script" uid="uid://dw047tn6dfl3s" path="res://Scripts/InputComponent.gd" id="4_28aoi"]
-[ext_resource type="AudioStream" uid="uid://6ws726qa18ox" path="res://Sonidos/0531.MP3" id="4_ivxjp"]
-[ext_resource type="AudioStream" uid="uid://cgxty60kv4v8j" path="res://Sonidos/NOOOO.MP3" id="5_ivxjp"]
 
 [node name="Root" type="Node"]
 script = ExtResource("1_vvh5c")
@@ -15,10 +13,3 @@ script = ExtResource("1_vvh5c")
 unique_name_in_owner = true
 script = ExtResource("4_28aoi")
 metadata/_custom_type_script = "uid://dw047tn6dfl3s"
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_ivxjp")
-
-[node name="AudioStreamPlayerDeny" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_ivxjp")
-volume_db = 0.39

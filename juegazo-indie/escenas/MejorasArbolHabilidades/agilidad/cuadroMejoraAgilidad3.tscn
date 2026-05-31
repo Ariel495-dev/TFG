@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr7cxm2dgc68i"]
+[gd_scene load_steps=6 format=3 uid="uid://cr7cxm2dgc68i"]
 
 [ext_resource type="Texture2D" uid="uid://bjkqmejtg8ji1" path="res://sprites/Unallowed/agilidadMejoraUnallowedTFG.png" id="1_x46qp"]
 [ext_resource type="Texture2D" uid="uid://dbwaj20hh6hea" path="res://sprites/Allowed/agilidadMejoraAnallowedTFG.png" id="2_r6b5c"]
@@ -9,9 +9,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x46qp"]
-size = Vector2(52, 67)
 
 [node name="agilidad3" type="Control"]
 layout_mode = 3
@@ -42,10 +39,10 @@ expand_mode = 1
 
 [node name="polvoEstrella" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -24.0
-offset_top = -10.0
-offset_right = 71.0
-offset_bottom = 66.0
+offset_left = -23.0
+offset_top = 19.0
+offset_right = 72.0
+offset_bottom = 95.0
 texture = ExtResource("3_onpg1")
 expand_mode = 1
 
@@ -55,12 +52,7 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "25
-
-
-
-
-"
+text = "25"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -73,15 +65,15 @@ offset_right = 6.0
 offset_bottom = 71.0
 text = "20
 
-
-
 "
 label_settings = SubResource("LabelSettings_37ymx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 7.5)
-shape = SubResource("RectangleShape2D_x46qp")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -22.0
+offset_top = -27.0
+offset_right = 33.0
+offset_bottom = 41.0
+flat = true

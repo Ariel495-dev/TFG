@@ -6,6 +6,8 @@ signal hurt_pressed
 signal heal_pressed
 signal attack_pressed
 signal rematch_pressed
+signal volver_pressed
+signal ver_arbol_pressed
 
 var is_running := false
 var move_dir: Vector2 = Vector2.ZERO
@@ -22,3 +24,7 @@ func update() -> void:
 		heal_pressed.emit()
 	if Input.is_action_just_pressed("revancha"):
 		rematch_pressed.emit()
+	if Input.is_action_just_pressed("volver"):
+		volver_pressed.emit()
+	if Input.is_action_just_pressed("ver_arbol"):
+		ver_arbol_pressed.emit()

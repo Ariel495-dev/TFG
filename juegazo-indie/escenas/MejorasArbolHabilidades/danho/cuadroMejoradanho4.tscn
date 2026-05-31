@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyr21kgndoo67"]
+[gd_scene load_steps=6 format=3 uid="uid://dyr21kgndoo67"]
 
 [ext_resource type="Texture2D" uid="uid://dv6yhikc08a84" path="res://sprites/Unallowed/danhoMejoraUnallowedTFG.png" id="1_6anxt"]
 [ext_resource type="Texture2D" uid="uid://vnwlsdcf3htw" path="res://sprites/Allowed/danhoMejoraAnallowedTFG.png" id="2_hqa4v"]
@@ -9,9 +9,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_37ymx"]
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71ra8"]
-size = Vector2(52, 68)
 
 [node name="danho4" type="Control"]
 layout_mode = 3
@@ -55,36 +52,26 @@ offset_left = -2.0
 offset_top = 26.0
 offset_right = 38.0
 offset_bottom = 49.0
-text = "75
-
-
-
-
-
-"
+text = "75"
 label_settings = SubResource("LabelSettings_mitr5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="cantidad" type="Label" parent="."]
 layout_mode = 0
-offset_left = -13.0
-offset_top = -4.0
-offset_right = 6.0
-offset_bottom = 71.0
-text = "2
-
-
-
-
-
-"
+offset_left = -12.0
+offset_top = -23.0
+offset_right = 7.0
+offset_bottom = 52.0
+text = "2"
 label_settings = SubResource("LabelSettings_37ymx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 7)
-shape = SubResource("RectangleShape2D_71ra8")
+[node name="upgrade" type="Button" parent="."]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -26.0
+offset_right = 31.0
+offset_bottom = 41.0
+flat = true

@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbmjju71hrrwv"]
+
+[ext_resource type="Script" uid="uid://cuqdcqg56jlwf" path="res://Scripts/Recursos.gd" id="1_38qwd"]
+[ext_resource type="Texture2D" uid="uid://c1wdyryludpym" path="res://sprites/objetos/experienciaTFG.png" id="1_63pgh"]
+[ext_resource type="Texture2D" uid="uid://dqfbgsv0acgp3" path="res://sprites/objetos/fragmentoDeEstrellaTFG.png" id="2_38qwd"]
+[ext_resource type="Texture2D" uid="uid://3ykttieqavtt" path="res://sprites/EstrellaTFG.png" id="3_phsso"]
+
+[node name="Recursos" type="CanvasLayer"]
+script = ExtResource("1_38qwd")
+
+[node name="Experiencia" type="TextureRect" parent="."]
+offset_left = 2.0
+offset_top = -7.0
+offset_right = 85.0
+offset_bottom = 63.0
+texture = ExtResource("1_63pgh")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Experiencia"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 25.0
+offset_right = 88.0
+offset_bottom = 48.0
+text = "0
+"
+
+[node name="PolvoEstrellas" type="TextureRect" parent="."]
+offset_left = -7.0
+offset_top = 24.0
+offset_right = 97.0
+offset_bottom = 109.0
+texture = ExtResource("2_38qwd")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="PolvoEstrellas"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 31.0
+offset_right = 97.0
+offset_bottom = 54.0
+text = "0"
+
+[node name="Estrella" type="TextureRect" parent="."]
+offset_left = 15.0
+offset_top = 77.0
+offset_right = 73.0
+offset_bottom = 130.0
+texture = ExtResource("3_phsso")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Estrella"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 14.0
+offset_right = 76.0
+offset_bottom = 37.0
+text = "0
+"
