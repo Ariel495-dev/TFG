@@ -42,17 +42,14 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	input_component.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	# Conectar inputs de combate/arbol (siempre activos)
 	input_component.attack_pressed.connect(_on_attack_pressed)
 	input_component.rematch_pressed.connect(_on_rematch_pressed)
 	input_component.volver_pressed.connect(_on_volver_pressed)
 	input_component.ver_arbol_pressed.connect(_on_ver_arbol_pressed)
 
-	# Conectar señales de combate
 	SceneCombat.combat_started.connect(_on_combat_started)
 	SceneCombat.combat_ended.connect(_on_combat_ended)
 
-	# Audio
 	if audio_player == null:
 		audio_player = AudioStreamPlayer.new()
 		audio_player.name = "AudioStreamPlayer2D"
@@ -62,7 +59,6 @@ func _ready() -> void:
 		deny_player.name = "AudioStreamPlayerDeny"
 		add_child(deny_player)
 
-	# Menús
 	_cargar_configuracion()
 	_cargar_token()
 	_ocultar_todos()
@@ -209,7 +205,6 @@ func _conectar_luis() -> void:
 		print("[Root] ERROR: Luis no encontrado en el mundo")
 		return
 
-	# Desconectar primero por si acaso
 	if input_component.moved.is_connected(luis.on_move_input):
 		input_component.moved.disconnect(luis.on_move_input)
 	if input_component.sprint_changed.is_connected(luis.on_sprint_input):
@@ -218,6 +213,13 @@ func _conectar_luis() -> void:
 	input_component.moved.connect(luis.on_move_input)
 	input_component.sprint_changed.connect(luis.on_sprint_input)
 	luis.health_component.died.connect(_on_luis_died)
+
+	# Reaplicar mejoras ya desbloqueadas
+	luis.stats_component.reset()
+	var mejoras_activas := mejoras.keys().filter(func(k): return mejoras[k] == true)
+	if mejoras_activas.size() > 0:
+		luis.apply_upgrades_bulk(mejoras_activas)
+		print("[Root] Mejoras reaplicadas a Luis: ", mejoras_activas)
 
 	print("[Root] Luis conectado")
 
@@ -382,12 +384,16 @@ func _on_upgrade_requested(node_name: String, precio: int) -> void:
 func _on_upgrade_completed(node_name: String, _cantidad: int, precio: int) -> void:
 	if luis == null:
 		return
+
 	mejoras[node_name] = true
 
 	if not luis.spend_fragmentos(precio):
 		return
 
 	ArbolHabilidadesDatos.unlock(node_name)
+
+	# Aplicar el efecto estadístico en Luis
+	luis.apply_upgrade(node_name)
 
 	if node_name == "estrella":
 		luis.add_estrella()

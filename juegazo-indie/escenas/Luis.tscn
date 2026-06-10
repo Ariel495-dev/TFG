@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfjpjxl5dnpeb"]
+[gd_scene load_steps=19 format=3 uid="uid://bfjpjxl5dnpeb"]
 
 [ext_resource type="Texture2D" uid="uid://cyam51w5sigkj" path="res://sprites/Luis/idleLuis.png" id="1_cvhc1"]
 [ext_resource type="Script" uid="uid://byh6wtcmvig50" path="res://Scripts/luis.gd" id="1_k0pdd"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" uid="uid://bumwoq2yk5oc5" path="res://Scripts/Health_Component.gd" id="7_vcb54"]
 [ext_resource type="Script" uid="uid://cf2i7cxylu0xi" path="res://Scripts/ProgressBarComponent.gd" id="8_hcyaq"]
 [ext_resource type="PackedScene" uid="uid://k0jjl2q5urji" path="res://escenas/Barras/health_bar.tscn" id="9_xarax"]
-[ext_resource type="Script" uid="uid://b1gxann1mewtu" path="res://Scripts/Relacionados con la UI de combate/StaminaComponent.gd" id="9_y1ybl"]
-[ext_resource type="Script" uid="uid://botochnjjpw4m" path="res://Scripts/Relacionados con la UI de combate/ActionComponent.gd" id="10_hcyaq"]
+[ext_resource type="Script" uid="uid://b1gxann1mewtu" path="res://Scripts/ArbolHabilidadesSubidaNivel/Relacionados con la UI de combate/StaminaComponent.gd" id="9_y1ybl"]
+[ext_resource type="Script" uid="uid://botochnjjpw4m" path="res://Scripts/ArbolHabilidadesSubidaNivel/Relacionados con la UI de combate/ActionComponent.gd" id="10_hcyaq"]
 [ext_resource type="Script" uid="uid://d34ces3djiec6" path="res://Scripts/SoulComponent.gd.gd" id="11_hcyaq"]
 [ext_resource type="PackedScene" uid="uid://cbmjju71hrrwv" path="res://escenas/MarcadorRecursos.tscn" id="12_p0c0h"]
-[ext_resource type="Script" uid="uid://bukjmjvy85oi2" path="res://Scripts/Relacionados con la UI de combate/ExperienceComponent.gd" id="13_mraiq"]
+[ext_resource type="Script" uid="uid://bukjmjvy85oi2" path="res://Scripts/ArbolHabilidadesSubidaNivel/Relacionados con la UI de combate/ExperienceComponent.gd" id="13_mraiq"]
+[ext_resource type="Script" uid="uid://c6byylyey3kjo" path="res://Scripts/StatsComponent.gd" id="14_wull4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0pdd"]
 radius = 36.0
@@ -56,6 +57,11 @@ _data = {
 
 [node name="Luis" type="CharacterBody2D" groups=["\"player\""]]
 script = ExtResource("1_k0pdd")
+player_max_health = null
+player_max_stamina = null
+player_stamina_regen = null
+player_action_regen = null
+spawn_position = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, -80)
@@ -121,3 +127,8 @@ metadata/_custom_type_script = "uid://d34ces3djiec6"
 unique_name_in_owner = true
 script = ExtResource("13_mraiq")
 metadata/_custom_type_script = "uid://bukjmjvy85oi2"
+
+[node name="StatsComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("14_wull4")
+metadata/_custom_type_script = "uid://c6byylyey3kjo"

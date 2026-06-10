@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="JuegazoIndie"
-run/main_scene="uid://bbflnwu84muss"
+run/main_scene="uid://chkvyncxq3leg"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [autoload]
 
-SceneCombat="*res://Scripts/Relacionados con la UI de combate/SceneCombat.gd"
+SceneCombat="*res://Scripts/ArbolHabilidadesSubidaNivel/Relacionados con la UI de combate/SceneCombat.gd"
 ArbolHabilidadesDatos="*res://Scripts/ArbolHabilidadesSubidaNivel/ArbolHabilidadesDatos.gd"
 
 [global_group]

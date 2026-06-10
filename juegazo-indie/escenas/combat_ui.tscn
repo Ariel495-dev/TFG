@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://hs28l2ylyluo"]
 
-[ext_resource type="Script" uid="uid://y2tmsefmloup" path="res://Scripts/Relacionados con la UI de combate/CombatUI.gd" id="1_n6w7t"]
+[ext_resource type="Script" uid="uid://y2tmsefmloup" path="res://Scripts/ArbolHabilidadesSubidaNivel/Relacionados con la UI de combate/CombatUI.gd" id="1_n6w7t"]
 [ext_resource type="Texture2D" uid="uid://bujctld1ti4rr" path="res://sprites/CombatScene/InterfazCombateMejor.png" id="1_vm6bf"]
 [ext_resource type="PackedScene" uid="uid://bnnif1o0yxtrx" path="res://escenas/Barras/EnergiaPjBar.tscn" id="2_n6w7t"]
 [ext_resource type="PackedScene" uid="uid://dd5e4tvsklkrt" path="res://escenas/Barras/AccionPjBar.tscn" id="3_f7fw7"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cf2i7cxylu0xi" path="res://Scripts/ProgressBarComponent.gd" id="4_f7fw7"]
 [ext_resource type="PackedScene" uid="uid://boflbyv7nyrm3" path="res://escenas/Barras/AccionEnemyBar.tscn" id="5_1vrmd"]
 [ext_resource type="PackedScene" uid="uid://r6i6m312ngmd" path="res://escenas/Barras/VidaEnemigoBar.tscn" id="6_8qhxp"]
-[ext_resource type="Script" uid="uid://dfbt4c47dfs8h" path="res://Scripts/Relacionados con la UI de combate/ResultPanel.gd" id="9_eygkk"]
+[ext_resource type="Script" uid="uid://dfbt4c47dfs8h" path="res://Scripts/ArbolHabilidadesSubidaNivel/Relacionados con la UI de combate/ResultPanel.gd" id="9_eygkk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huihk"]
 size = Vector2(110.5, 81)
